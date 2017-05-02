@@ -531,7 +531,9 @@ public class IdentityXServices implements IIdentityXServices {
 			request = authenticationRequestRepo.update(request);
 			
 			// User was authenticated
-			if (request.getStatus() == AuthenticationRequestStatusEnum.COMPLETED_SUCCESSFUL) {
+			if (request.getStatus() == AuthenticationRequestStatusEnum.PENDING 
+					|| request.getStatus() == AuthenticationRequestStatusEnum.COMPLETED_SUCCESSFUL) {
+
 				UserRepository userRepo = this.getTenantRepoFactory().getUserRepo();
 				if (request.getUser() != null) {
 					request.setUser(userRepo.get(request.getUser().getHref()));
